@@ -1,19 +1,19 @@
 {
-	"manifest_version": 2,
-	"name": "Chrome插件demo",
-	"version": "1.0",
-	"description": "最简单的Chrome插件demo，需要快速做一个简单的插件时可以基于这个仓库开发",
-	"author": "sxei",
+	"manifest_version": 3,
+	"name": "UberEatsMemo",
+	"version": "0.1.1",
+	"description": "UberEats is a simple memo tool that allows you to add a few memos to your meal.",
+	"author": "jiowchern",
+	"permissions": [
+		"storage",
+		"activeTab",
+		"scripting","tabs"
+	],
 	"icons":
 	{
 		"48": "icon.png",
 		"128": "icon.png"
-	},
-	"browser_action": 
-	{
-		"default_icon": "icon.png",
-		"default_popup": "popup.html"
-	},
+	},	
 	"content_scripts": 
 	[
 		{
@@ -21,8 +21,7 @@
 			"js": ["content-script.js"]
 		}
 	],
-	"web_accessible_resources": 
-	[
-		"inject.js"
-	]
+	"background": {
+		"service_worker" :"background.js"		
+	  }
 }
