@@ -1,18 +1,16 @@
 {
 	"manifest_version": 3,
-	"name": "UberEatsMemo",
-	"version": "0.1.1",
-	"description": "UberEats is a simple memo tool that allows you to add a few memos to your meal.",
+	"name": "UberEats Memo",
+	"version": "0.1.0",
+	"description": "UberEats Memo is a simple memo tool that adds a memo input box to each item.",
 	"author": "jiowchern",
 	"permissions": [
-		"storage",
-		"activeTab",
-		"scripting"
+		"storage"
 	],
 	"icons":
 	{
 		"48": "icon.png",
-		"128": "icon.png"
+		"128": "memo_logo_128x128.png"
 	},	
 	"content_scripts": 
 	[

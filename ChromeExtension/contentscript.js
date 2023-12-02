@@ -44,7 +44,7 @@ function handleAHrefs() {
 		const storageKey = _StorageIdPrefix + result.Key;	
 		
 		const textarea = document.createElement('textarea');
-		textarea.placeholder = 'Memo to fill in here...';
+		textarea.placeholder = '';
 		textarea.setAttribute(_MemoId, storageKey);
 		
 
