@@ -28,6 +28,47 @@ function findStorageKey(url) {
 function isEmptyOrWhitespace(str) {
     return !str || str.trim().length === 0;
 }
+function createMemo(key)
+{
+	const storageKey = _StorageIdPrefix + key;	
+		
+	const textarea = document.createElement('textarea');
+	textarea.placeholder = '';
+	textarea.setAttribute(_MemoId, storageKey);
+	
+
+	if (localStorage.getItem(storageKey)) {
+		const item = localStorage.getItem(storageKey);
+		if(isEmptyOrWhitespace( item))
+		{
+			return;
+		}
+		textarea.value = item;
+	}
+	textarea.style.borderColor = 'transparent'; // 滑鼠移開後設定邊框顏色為透明
+	textarea.addEventListener('mouseenter', function() {
+		this.style.borderColor = 'blue'; // 滑鼠移入時設定邊框顏色為藍色
+	  });
+	  
+	  textarea.addEventListener('mouseleave', function() {
+		this.style.borderColor = 'transparent'; // 滑鼠移開後設定邊框顏色為透明
+	  });
+
+	textarea.addEventListener('input', () => {
+		if(isEmptyOrWhitespace(textarea.value))
+		{
+			localStorage.removeItem(storageKey);
+			return;
+		}
+		localStorage.setItem(storageKey, textarea.value);
+		setMemo(storageKey ,textarea.value );
+	});
+
+
+	const newDiv = document.createElement('div');		
+	newDiv.appendChild(textarea);
+	return newDiv;
+}
 function handleAHrefs() {
 	const aHrefs = document.querySelectorAll('a[tabindex="0"]');
 	aHrefs.forEach( aHref =>{
@@ -41,35 +82,7 @@ function handleAHrefs() {
 		if(result == null){
 			return;
 		}
-		const storageKey = _StorageIdPrefix + result.Key;	
-		
-		const textarea = document.createElement('textarea');
-		textarea.placeholder = '';
-		textarea.setAttribute(_MemoId, storageKey);
-		
-
-		if (localStorage.getItem(storageKey)) {
-			const item = localStorage.getItem(storageKey);
-			if(isEmptyOrWhitespace( item))
-			{
-				return;
-			}
-            textarea.value = item;
-        }
-
-        textarea.addEventListener('input', () => {
-			if(isEmptyOrWhitespace(textarea.value))
-			{
-				localStorage.removeItem(storageKey);
-				return;
-			}
-            localStorage.setItem(storageKey, textarea.value);
-			setMemo(storageKey ,textarea.value );
-        });
-
-
-		const newDiv = document.createElement('div');		
-        newDiv.appendChild(textarea);
+		const newDiv = createMemo(result.Key);
         aHref.parentNode.appendChild(newDiv);
 		aHref.setAttribute( _DataProcessed, 'true');
 
